@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log // 追加
 import android.view.View // 追加
+import androidx.appcompat.app.AlertDialog
 import jp.techacademy.kosuke.miyazaki.ui.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener { // 変更
@@ -17,21 +18,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { // 変更
         val view = binding.root//追加
         setContentView(view)//変更
 
-        //View BindingでUI部品を指定
-        binding.button1.text = "ベンジャミンボタン"
-        binding.button1.setOnClickListener {
-            //EditTextの文字列をTextViewに設定
+        binding.button1.setOnClickListener(this)
+        binding.button2.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View) {
+        if (v.id == R.id.button1) {
             binding.textView.text = binding.editText.text.toString()
+        } else if (v.id == R.id.button2) {
+            showAlertDialog()
         }
     }
-    // 以下の関数を追加
-    override fun onClick(v: View) {
-        Log.d("UI_PARTS", "ボタンをタップしました")
 
-    //以下を追加
-    binding.textView.text = "テキスト"
+    private fun showAlertDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("タイトル")
+        alertDialogBuilder.setMessage("メッセージ")
 
-    binding.textView.setTextColor(Color.MAGENTA)
+        alertDialogBuilder.setPositiveButton("肯定"){dialog, which ->
+            Log.d("UI_PARTS", "肯定ボタン")
+        }
+
+        alertDialogBuilder.setNeutralButton("中立"){_,_ ->
+            Log.d("UI_PARTS", "中立ボタン")
+        }
+
+        alertDialogBuilder.setNegativeButton("否定"){_,_ ->
+            Log.d("UI_PARTS", "否定ボタン")
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
-
 }
