@@ -27,14 +27,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener { // 変更
     }
 
     override fun onClick(v: View) {
-        if (v.id == R.id.button1) {
-            binding.textView.text = binding.editText.text.toString()
-        } else if (v.id == R.id.button2) {
-            showAlertDialog()
-        } else if (v.id == R.id.button3) {
-            showTimePickerDialog()
-        } else if (v.id == R.id.button4) {
-            showDatePickerDialog()
+        when (v.id) {
+            R.id.button1 -> binding.textView.text = binding.editText.text.toString()
+            R.id.button2 -> showAlertDialog()
+            R.id.button3 -> showTimePickerDialog()
+            R.id.button4 -> showDatePickerDialog()
         }
     }
 
